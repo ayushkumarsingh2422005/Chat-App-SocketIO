@@ -8,7 +8,7 @@ app.use(cors());
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:5173", // Updated to match the frontend URL without trailing slash
+    origin: "https://chat-app-cb5j.onrender.com/", // Updated to match the frontend URL without trailing slash
     methods: ["GET", "POST"]
   }
 });
