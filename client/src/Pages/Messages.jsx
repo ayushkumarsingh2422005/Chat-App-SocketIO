@@ -25,6 +25,12 @@ export default function Messages() {
     };
   }, []);
 
+  useEffect(() => {
+    if (msgRef.current) {
+      msgRef.current.scrollTop = msgRef.current.scrollHeight;
+    }
+  }, [messages]);
+
   const sendMessage = () => {
     if (prompt.trim() !== "") {
       const messageData = { user: userName, text: prompt };
