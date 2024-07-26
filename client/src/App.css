@@ -1,3 +1,20 @@
 *{
   box-sizing: border-box;
 }
+.send {
+  background-color: #e0f7fa;
+  color: #00796b;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 75%;
+  align-self: flex-end;
+}
+
+.received {
+  background-color: #f3e5f5;
+  color: #6a1b9a;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 75%;
+  align-self: flex-start;
+}
