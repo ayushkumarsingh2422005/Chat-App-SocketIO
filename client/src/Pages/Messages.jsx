@@ -10,6 +10,11 @@ export default function Messages() {
   const userName = localStorage.getItem('user');
 
   useEffect(() => {
+    // Request notification permission on component mount
+    if (Notification.permission !== 'granted') {
+      Notification.requestPermission();
+    }
+
     socket.on("connect", () => {
       console.log("Connected to server");
     });
@@ -17,6 +22,14 @@ export default function Messages() {
     socket.on("message", (data) => {
       console.log(data);
       setMessages(prevMessages => [...prevMessages, { type: 'received', user: data.user, text: data.text }]);
+      
+      // Show browser notification for the new message
+      if (Notification.permission === 'granted') {
+        new Notification(`${data.user}`, {
+          body: data.text,
+          icon: '/path-to-your-icon.png' // Optional: include an icon,
+        });
+      }
     });
 
     return () => {
