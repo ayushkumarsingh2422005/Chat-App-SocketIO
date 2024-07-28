@@ -44,7 +44,7 @@ router.get('/google/callback', async (req, res) => {
 
         // Handle user authentication here
         console.log('User profile:', profile);
-        const redirectUrl = `http://localhost:5173/messages?name=${encodeURIComponent(profile.name)}`;
+        const redirectUrl = `https://chat-app-cb5j.onrender.com/messages?name=${encodeURIComponent(profile.name)}`;
         // Redirect the user to the URL
         res.redirect(redirectUrl);
 
