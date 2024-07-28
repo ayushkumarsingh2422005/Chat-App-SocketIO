@@ -2,15 +2,17 @@ import React, { useEffect, useRef, useState } from 'react';
 import socket from '../config/socket';
 import { LuSendHorizonal } from "react-icons/lu";
 import '../App.css';
+import { useLocation } from 'react-router-dom';
 
 export default function Messages() {
   const [prompt, setPrompt] = useState("");
   const [messages, setMessages] = useState([]);
   const msgRef = useRef();
-  const userName = localStorage.getItem('user');
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const userName = queryParams.get('name') || 'Anonymous'; // Default to 'Anonymous' if no name is provided
 
   useEffect(() => {
-    // Request notification permission on component mount
     if (Notification.permission !== 'granted') {
       Notification.requestPermission();
     }
@@ -23,11 +25,10 @@ export default function Messages() {
       console.log(data);
       setMessages(prevMessages => [...prevMessages, { type: 'received', user: data.user, text: data.text }]);
       
-      // Show browser notification for the new message
       if (Notification.permission === 'granted') {
         new Notification(`${data.user}`, {
           body: data.text,
-          icon: '/path-to-your-icon.png' // Optional: include an icon,
+          icon: '/path-to-your-icon.png' // Optional: include an icon if you have one
         });
       }
     });
@@ -49,7 +50,7 @@ export default function Messages() {
       const messageData = { user: userName, text: prompt };
       socket.emit("msg", messageData);
       setMessages(prevMessages => [...prevMessages, { type: 'send', user: userName, text: prompt }]);
-      setPrompt(""); // Clear the input field after sending the message
+      setPrompt("");
     }
   };
 
