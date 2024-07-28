@@ -16,7 +16,7 @@ app.use('/auth', authRoutes);
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: "https://chat-app-cb5j.onrender.com",
     methods: ["GET", "POST"]
   }
 });
